@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js" defer></script>
+    <title>Progressium</title>
+</head>
+
+<body>
+    <header>
+        <div>
+            <div>Progressium</div>
+            <div>список задач</div>
+        </div>
+    </header>
+    <div>
+        <ul id="tasks-list"></ul>
+    </div>
+    <div id="input-container" class="container">
+        <div id="task-header-card">Создать новую задачу</div>
+        <form id="form" class="container">
+            <div id="task-body-card" class="container">
+                <input id="task-title-input" type="text" placeholder="Название задачи" autofocus required>
+                <div id="example-container">Например: <span id="example"></span></div>
+                <textarea id="task-description-input" placeholder="Описание задачи"></textarea>
+                <select id="task-category-select">
+                    <option value="Обычное" selected>Обычное</option>
+                    <option value="Важное">Важное</option>
+                    <option value="Учёба">Учёба</option>
+                    <option value="Работа">Работа</option>
+                    <option value="Хобби">Хобби</option>
+                </select>
+                <button class="add" type="submit">Добавить</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
