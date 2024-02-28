@@ -145,7 +145,7 @@ function renderTask(task) {
     let taskHTML = `
                 <li id="${task.id}" class="task-item">
                 <div class="${cssClass}">
-					<div class="title"><span class="task-title-head">Название:</span> <span class="task-title">${task.title}</span></div> <div class="category"><span class="category-head">Категория:</span> <span class="task-category">${task.category}</span></div> <div class="time"><span class="time-head">Время:</span> <span class="task-time">${task.time.hour}:${task.time.minute}; ${task.time.day}.${task.time.month}.${task.time.year}</span></div> <div class="description"><span class="description-head">Описание:</span> <span class="task-description">${task.description}</span></div
+					<div class="title"><span class="task-title-head">Название:</span> <span class="task-title">${task.title}</span></div> <div class="category"><span class="task-category-head">Категория:</span> <span class="task-category">${task.category}</span></div> <div class="time"><span class="task-time-head">Время:</span> <span class="task-time">${task.time.hour}:${task.time.minute}; ${task.time.day}.${task.time.month}.${task.time.year}</span></div> <div class="description"><span class="task-description-head">Описание:</span> <span class="task-description">${task.description}</span></div
                 </div>
 					<div class="task-item-buttons">
 						<button type="button" data-action="done" class="btn-action done">

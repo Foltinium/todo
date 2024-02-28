@@ -37,7 +37,7 @@ header {
 
 #tasks-list {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     gap: 8px;
     border: 1px solid rgba(0, 0, 0, .25);
     border-radius: 4px;
@@ -53,28 +53,31 @@ li {
 .task-item {
     outline: 1px solid #000;
     border-radius: 4px;
+    padding: 8px;
 }
 
 div.task-title {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    row-gap: 8px;
+    grid-template-columns: 4fr 1fr 1fr;
+    gap: 8px;
 }
-
-.title,
-.category,
-.time,
-.description {}
 
 .description {
     grid-column: span 3;
 }
 
-.task-title .task-title,
+.task-title-head,
+.task-category-head,
+.task-time-head,
+.task-description-head {
+    color: rgba(64, 64, 64, .75);
+}
+
+.title .task-title,
 .task-category,
 .task-time,
 .task-description {
-    font-size: .9rem;
+    font-weight: bold;
     hyphens: auto;
 }
 
@@ -89,16 +92,9 @@ div.task-title {
     outline: dashed 2px #9fc49f;
 }
 
-.task-category {}
-
-.task-time {}
-
-.task-description {}
-
 .task-item-buttons {
     display: flex;
     gap: 8px;
-    margin: 0 0 8px 8px;
 }
 
 .btn-action {
@@ -188,8 +184,6 @@ input:focus {
 #task-description-input:focus {
     outline: 3px solid #0c0;
 }
-
-#task-category-select {}
 
 #task-category-select:focus {
     outline: 3px solid #0c0;
