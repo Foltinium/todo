@@ -33,14 +33,11 @@ tasksList.addEventListener(`click`, deleteTask);
 tasksList.addEventListener(`click`, doneTask);
 
 function addTask(evt) {
-    // Отмена отправки формы
     evt.preventDefault();
-
     let taskTitle = titleInput.value;
     let taskDescription = descriptionInput.value;
     let taskCategory = categoryTaskSelect.value;
     let now = new Date();
-
     let newTask = {
         id: Date.now(),
         title: taskTitle,
@@ -56,61 +53,42 @@ function addTask(evt) {
         done: false,
     };
 
-    // Добавление задачи в массив с задачами
     tasks.push(newTask);
-
-    // Сохранение списка задач в хранилище браузера localStorage
     saveToLocalStorage();
-
-    // Рендер задачи
     renderTask(newTask);
-
-    // Очистка полей ввода и фокус на поле названия задачи
     titleInput.value = '';
     descriptionInput.value = '';
     categoryTaskSelect.value = 'Обычное';
     titleInput.focus();
-
     checkEmptyList();
 }
 
 function deleteTask(evt) {
-    // Если клик был НЕ по кнопке "удалить задачу", то остановить ф-цию
+
     if (evt.target.dataset.action !== 'delete') {
         return
     };
 
     let parenNode = evt.target.closest(`.task-item`);
-
-    // Определение ID задачи
     let id = Number(parenNode.id);
-
-    // Удаление задачи через фильтрацию массива
     tasks = tasks.filter((task) => task.id !== id);
 
-    // Сохранение списка задач в хранилище браузера localStorage
     saveToLocalStorage();
-
-    // Удаление задачи из разметки
     parenNode.remove();
-
     checkEmptyList();
 }
 
 function doneTask(evt) {
-    // Если клик был НЕ по кнопке "выполнить задачу", то остановить ф-цию
+
     if (evt.target.dataset.action !== 'done') {
         return;
     }
 
     let parentNode = evt.target.closest(`.task-item`);
-
-    // Определение ID задачи
     let id = Number(parentNode.id);
     let task = tasks.find((task) => task.id === id);
     task.done = !task.done;
 
-    // Сохранение списка задач в хранилище браузера localStorage
     saveToLocalStorage();
 
     let taskTitle = parentNode.querySelector(`.task-title`);
@@ -138,23 +116,22 @@ function saveToLocalStorage() {
 }
 
 function renderTask(task) {
-    // Формируем CSS класс
     let cssClass = task.done ? 'task-title task-title-done' : 'task-title';
 
-    // Разметка для новой задачи
     let taskHTML = `
                 <li id="${task.id}" class="task-item">
                 <div class="${cssClass}">
-					<div class="title"><span class="task-title-head">Название:</span> <span class="task-title">${task.title}</span></div> <div class="category"><span class="task-category-head">Категория:</span> <span class="task-category">${task.category}</span></div> <div class="time"><span class="task-time-head">Время:</span> <span class="task-time">${task.time.hour}:${task.time.minute}; ${task.time.day}.${task.time.month}.${task.time.year}</span></div> <div class="description"><span class="task-description-head">Описание:</span> <span class="task-description">${task.description}</span></div
+					<div class="title"><span class="task-title-head">Название:</span> <span class="task-title">${task.title}</span></div> <div class="category"><span class="task-category-head">Категория:</span> <span class="task-category">${task.category}</span></div> <div class="time"><span class="task-time-head">Время:</span> <span class="task-time">${task.time.hour}:${task.time.minute}; ${task.time.day}.${task.time.month}.${task.time.year}</span></div> <div class="description"><span class="task-description-head">Описание:</span> <span class="task-description">${task.description}</span></div>
                 </div>
-					<div class="task-item-buttons">
-						<button type="button" data-action="done" class="btn-action done">
-						+
-						</button>
-						<button type="button" data-action="delete" class="btn-action delete">
-						-
-						</button>
-					</div>
+				<div class="task-item-buttons">
+					<button type="button" data-action="done" class="btn-action done">
+					+
+					</button>
+					<button type="button" data-action="delete" class="btn-action delete">
+					-
+					</button>
+                    <button type="button" data-action="edit" class="btn-action edit">edit</button>
+				</div>
 				</li>
                 `;
 

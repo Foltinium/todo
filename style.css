@@ -122,6 +122,10 @@ div.task-title {
     background-color: #c00;
 }
 
+.edit {
+    background-color: #cc0;
+}
+
 .task-title-done {
     text-decoration: line-through;
     color: #f00;
