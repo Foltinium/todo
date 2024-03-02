@@ -31,50 +31,51 @@ checkEmptyList();
 form.addEventListener(`submit`, addTask);
 tasksList.addEventListener(`click`, deleteTask);
 tasksList.addEventListener(`click`, doneTask);
+tasksList.addEventListener(`click`, editTask);
 
 function addTask(evt) {
     evt.preventDefault();
     let taskTitle = titleInput.value;
     let taskDescription = descriptionInput.value;
     let taskCategory = categoryTaskSelect.value;
-    let now = new Date();
+    let taskTime = new Date();
     let newTask = {
         id: Date.now(),
         title: taskTitle,
         description: taskDescription,
         category: taskCategory,
         time: {
-            minute: now.getMinutes(),
-            hour: now.getHours(),
-            day: now.getDate(),
-            month: now.getMonth() + 1,
-            year: now.getFullYear()
+            minute: taskTime.getMinutes(),
+            hour: taskTime.getHours(),
+            day: taskTime.getDate(),
+            month: taskTime.getMonth() + 1,
+            year: taskTime.getFullYear()
         },
         done: false,
     };
 
+    if (newTask.time.minute < 10) {
+        newTask.time.minute = "0" + newTask.time.minute;
+    }
+    if (newTask.time.hour < 10) {
+        newTask.time.hour = "0" + newTask.time.hour;
+    }
+    if (newTask.time.day < 10) {
+        newTask.time.day = "0" + newTask.time.day;
+    }
+    if (newTask.time.month < 10) {
+        newTask.time.month = "0" + newTask.time.month;
+    }
+
     tasks.push(newTask);
-    saveToLocalStorage();
     renderTask(newTask);
+    saveToLocalStorage();
+
     titleInput.value = '';
     descriptionInput.value = '';
     categoryTaskSelect.value = 'Обычное';
     titleInput.focus();
-    checkEmptyList();
-}
 
-function deleteTask(evt) {
-
-    if (evt.target.dataset.action !== 'delete') {
-        return
-    };
-
-    let parenNode = evt.target.closest(`.task-item`);
-    let id = Number(parenNode.id);
-    tasks = tasks.filter((task) => task.id !== id);
-
-    saveToLocalStorage();
-    parenNode.remove();
     checkEmptyList();
 }
 
@@ -92,7 +93,29 @@ function doneTask(evt) {
     saveToLocalStorage();
 
     let taskTitle = parentNode.querySelector(`.task-title`);
-    taskTitle.classList.toggle(`task-title-done`);
+    let taskCategory = parentNode.querySelector(`.task-category`);
+    let taskTime = parentNode.querySelector(`.task-time`);
+    let taskDescription = parentNode.querySelector(`.task-description`);
+
+    taskTitle.classList.toggle(`task-done`);
+    taskCategory.classList.toggle(`task-done`);
+    taskTime.classList.toggle(`task-done`);
+    taskDescription.classList.toggle(`task-done`);
+}
+
+function deleteTask(evt) {
+
+    if (evt.target.dataset.action !== 'delete') {
+        return
+    };
+
+    let parenNode = evt.target.closest(`.task-item`);
+    let id = Number(parenNode.id);
+    tasks = tasks.filter((task) => task.id !== id);
+
+    saveToLocalStorage();
+    parenNode.remove();
+    checkEmptyList();
 }
 
 function checkEmptyList() {
@@ -116,11 +139,11 @@ function saveToLocalStorage() {
 }
 
 function renderTask(task) {
-    let cssClass = task.done ? 'task-title task-title-done' : 'task-title';
+    let cssClass = task.done ? 'task-title task-done' : 'task-title';
 
     let taskHTML = `
                 <li id="${task.id}" class="task-item">
-                <div class="${cssClass}">
+                <div class="task-info">
 					<div class="title"><span class="task-title-head">Название:</span> <span class="task-title">${task.title}</span></div> <div class="category"><span class="task-category-head">Категория:</span> <span class="task-category">${task.category}</span></div> <div class="time"><span class="task-time-head">Время:</span> <span class="task-time">${task.time.hour}:${task.time.minute}; ${task.time.day}.${task.time.month}.${task.time.year}</span></div> <div class="description"><span class="task-description-head">Описание:</span> <span class="task-description">${task.description}</span></div>
                 </div>
 				<div class="task-item-buttons">
@@ -135,7 +158,6 @@ function renderTask(task) {
 				</li>
                 `;
 
-    // Добавление задачи на странице
     tasksList.insertAdjacentHTML('beforeend', taskHTML);
 }
 
