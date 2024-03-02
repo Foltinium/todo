@@ -6,7 +6,6 @@ body {
     background-color: #e4e5e7;
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
-    height: 100vh;
     cursor: default;
 }
 
@@ -56,9 +55,9 @@ li {
     padding: 8px;
 }
 
-div.task-title {
+.task-info {
     display: grid;
-    grid-template-columns: 4fr 1fr 1fr;
+    grid-template-columns: 3fr 1fr 1fr;
     gap: 8px;
 }
 
@@ -73,7 +72,7 @@ div.task-title {
     color: rgba(64, 64, 64, .75);
 }
 
-.title .task-title,
+.task-title,
 .task-category,
 .task-time,
 .task-description {
@@ -95,6 +94,7 @@ div.task-title {
 .task-item-buttons {
     display: flex;
     gap: 8px;
+    margin-top: 8px;
 }
 
 .btn-action {
@@ -115,18 +115,18 @@ div.task-title {
 }
 
 .done {
-    background-color: #0c0;
+    background-color: #0f0;
 }
 
 .delete {
-    background-color: #c00;
+    background-color: #f00;
 }
 
 .edit {
-    background-color: #cc0;
+    background-color: #ff0;
 }
 
-.task-title-done {
+.task-done {
     text-decoration: line-through;
     color: #f00;
 }
