@@ -1,7 +1,8 @@
+let body = document.querySelector(`body`);
 let form = document.querySelector(`#form`);
 let titleInput = document.querySelector(`#task-title-input`);
 let descriptionInput = document.querySelector(`#task-description-input`);
-let categoryTaskSelect = document.querySelector(`#task-category-select`);
+let categorySelect = document.querySelector(`#task-category-select`);
 let tasksList = document.querySelector(`#tasks-list`);
 let emptyList = document.querySelector(`#empty-list`);
 let exampleList = document.querySelector(`#example`);
@@ -10,14 +11,10 @@ let examples = [
     `выполнить домашнее задание`,
     `накормить домашнего питомца`,
     `составить отчёт`,
-    `почитать книгу`,
-    `c`,
-    `d`,
-    `e`,
-    `f`,
-    `g`,
-    `h`
+    `почитать книгу`
 ];
+
+let i = 0;
 
 let tasks = [];
 
@@ -29,18 +26,20 @@ if (localStorage.getItem(`tasks`)) {
 checkEmptyList();
 
 form.addEventListener(`submit`, addTask);
-tasksList.addEventListener(`click`, deleteTask);
 tasksList.addEventListener(`click`, doneTask);
+tasksList.addEventListener(`click`, deleteTask);
 tasksList.addEventListener(`click`, editTask);
+
+let taskTime = new Date();
 
 function addTask(evt) {
     evt.preventDefault();
     let taskTitle = titleInput.value;
     let taskDescription = descriptionInput.value;
-    let taskCategory = categoryTaskSelect.value;
-    let taskTime = new Date();
+    let taskCategory = categorySelect.value;
+
     let newTask = {
-        id: Date.now(),
+        id: i,
         title: taskTitle,
         description: taskDescription,
         category: taskCategory,
@@ -51,7 +50,7 @@ function addTask(evt) {
             month: taskTime.getMonth() + 1,
             year: taskTime.getFullYear()
         },
-        done: false,
+        done: false
     };
 
     if (newTask.time.minute < 10) {
@@ -71,17 +70,18 @@ function addTask(evt) {
     renderTask(newTask);
     saveToLocalStorage();
 
-    titleInput.value = '';
-    descriptionInput.value = '';
-    categoryTaskSelect.value = 'Обычное';
+    titleInput.value = "";
+    descriptionInput.value = "";
+    categorySelect.value = "Обычное";
     titleInput.focus();
 
     checkEmptyList();
+    i++;
 }
 
 function doneTask(evt) {
 
-    if (evt.target.dataset.action !== 'done') {
+    if (evt.target.dataset.action !== `done`) {
         return;
     }
 
@@ -105,9 +105,9 @@ function doneTask(evt) {
 
 function deleteTask(evt) {
 
-    if (evt.target.dataset.action !== 'delete') {
-        return
-    };
+    if (evt.target.dataset.action !== `delete`) {
+        return;
+    }
 
     let parenNode = evt.target.closest(`.task-item`);
     let id = Number(parenNode.id);
@@ -118,47 +118,64 @@ function deleteTask(evt) {
     checkEmptyList();
 }
 
+function editTask() {
+
+}
+
 function checkEmptyList() {
     if (tasks.length === 0) {
-        let emptyListHTML = `
+        let emptyListNode = `
                             <li id="emptyList" class="empty-list">
-					            <div class="empty-list-title">Список задач пуст</div>
-				            </li>
+                                <div class="empty-list-title">Список задач пуст</div>
+                            </li>
                             `;
-        tasksList.insertAdjacentHTML('afterbegin', emptyListHTML);
+        tasksList.insertAdjacentHTML(`afterbegin`, emptyListNode);
     }
 
     if (tasks.length > 0) {
-        let emptyListEl = document.querySelector('#emptyList');
-        emptyListEl ? emptyListEl.remove() : null;
+        let emptyListElement = document.querySelector(`#emptyList`);
+        emptyListElement ? emptyListElement.remove() : null;
     }
 }
 
 function saveToLocalStorage() {
-    localStorage.setItem('tasks', JSON.stringify(tasks))
+    localStorage.setItem(`tasks`, JSON.stringify(tasks));
 }
 
 function renderTask(task) {
-    let cssClass = task.done ? 'task-title task-done' : 'task-title';
+    let cssClass = task.done ? "task-title task-done" : "task-title";
 
     let taskHTML = `
-                <li id="${task.id}" class="task-item">
-                <div class="task-info">
-					<div class="title"><span class="task-title-head">Название:</span> <span class="task-title">${task.title}</span></div> <div class="category"><span class="task-category-head">Категория:</span> <span class="task-category">${task.category}</span></div> <div class="time"><span class="task-time-head">Время:</span> <span class="task-time">${task.time.hour}:${task.time.minute}; ${task.time.day}.${task.time.month}.${task.time.year}</span></div> <div class="description"><span class="task-description-head">Описание:</span> <span class="task-description">${task.description}</span></div>
-                </div>
-				<div class="task-item-buttons">
-					<button type="button" data-action="done" class="btn-action done">
-					+
-					</button>
-					<button type="button" data-action="delete" class="btn-action delete">
-					-
-					</button>
-                    <button type="button" data-action="edit" class="btn-action edit">edit</button>
-				</div>
-				</li>
-                `;
+                    <li id="${task.id}" class="task-item">
+                        <div class="task-info">
+                            <div class="title">
+                                <span class="task-title-head">Название:</span> <span class="task-title">${task.title}</span>
+                            </div>
+                            <div class="category">
+                                <span class="task-category-head">Категория:</span> <span class="task-category">${task.category}</span>
+                            </div>
+                            <div class="time">
+                                <span class="task-time-head">Время:</span> <span class="task-time">${task.time.hour}:${task.time.minute}; ${task.time.day}.${task.time.month}.${task.time.year}</span>
+                            </div>
+                            <div class="description">
+                                <span class="task-description-head">Описание:</span> <span class="task-description">${task.description}</span>
+                            </div>
+                        </div>
+                        <div class="task-item-buttons">
+                            <button type="button" data-action="done" class="btn-action done">
+                                +
+                            </button>
+                            <button type="button" data-action="delete" class="btn-action delete">
+                                -
+                            </button>
+                            <button type="button" data-action="edit" class="btn-action edit">
+                                edit
+                            </button>
+                        </div>
+                    </li>
+                    `;
 
-    tasksList.insertAdjacentHTML('beforeend', taskHTML);
+    tasksList.insertAdjacentHTML("beforeend", taskHTML);
 }
 
 function getRandomInt(min, max) {
@@ -172,3 +189,11 @@ function randomExample() {
 }
 
 randomExample();
+
+// window.addEventListener(`load`, function () {
+//     for (let i = 1; i <= 24; i++) {
+//         if (taskTime.getHours() == 0) {
+//             body.style.background = "linear-gradient(blue, black)";
+//         }
+//     }
+// })
