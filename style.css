@@ -3,10 +3,9 @@
 }
 
 body {
-    background-color: #e4e5e7;
+    background: #e4e5e7;
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
-    height: 100vh;
     cursor: default;
 }
 
@@ -37,7 +36,7 @@ header {
 
 #tasks-list {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     gap: 8px;
     border: 1px solid rgba(0, 0, 0, .25);
     border-radius: 4px;
@@ -53,28 +52,31 @@ li {
 .task-item {
     outline: 1px solid #000;
     border-radius: 4px;
+    padding: 8px;
 }
 
-div.task-title {
+.task-info {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    row-gap: 8px;
+    grid-template-columns: 3fr 1fr 1fr;
+    gap: 8px;
 }
-
-.title,
-.category,
-.time,
-.description {}
 
 .description {
     grid-column: span 3;
 }
 
-.task-title .task-title,
+.task-title-head,
+.task-category-head,
+.task-time-head,
+.task-description-head {
+    color: rgba(64, 64, 64, .75);
+}
+
+.task-title,
 .task-category,
 .task-time,
 .task-description {
-    font-size: .9rem;
+    font-weight: bold;
     hyphens: auto;
 }
 
@@ -89,16 +91,10 @@ div.task-title {
     outline: dashed 2px #9fc49f;
 }
 
-.task-category {}
-
-.task-time {}
-
-.task-description {}
-
 .task-item-buttons {
     display: flex;
     gap: 8px;
-    margin: 0 0 8px 8px;
+    margin-top: 8px;
 }
 
 .btn-action {
@@ -119,14 +115,22 @@ div.task-title {
 }
 
 .done {
-    background-color: #0c0;
+    background-color: #0f0;
 }
 
 .delete {
-    background-color: #c00;
+    background-color: #f00;
 }
 
-.task-title-done {
+.edit {
+    background-color: #ff0;
+}
+
+.confirm-edit {
+    background-color: #080;
+}
+
+.task-done {
     text-decoration: line-through;
     color: #f00;
 }
@@ -149,16 +153,13 @@ div.task-title {
     border-radius: 3px 3px 0 0;
 }
 
-#task-body-card {
+form {
     background-color: rgba(255, 255, 255, .5);
     border-radius: 0 0 3px 3px;
-}
-
-#task-body-card.container {
     gap: 12px;
 }
 
-input,
+#task-title-input,
 #task-description-input,
 #task-category-select,
 .add {
@@ -167,11 +168,11 @@ input,
     border-radius: 4px;
 }
 
-input {
+#task-title-input {
     margin: 16px 8px 0;
 }
 
-input:focus {
+#task-title-input:focus {
     outline: 3px solid #0c0;
 }
 
@@ -188,8 +189,6 @@ input:focus {
 #task-description-input:focus {
     outline: 3px solid #0c0;
 }
-
-#task-category-select {}
 
 #task-category-select:focus {
     outline: 3px solid #0c0;
