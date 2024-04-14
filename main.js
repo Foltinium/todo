@@ -216,7 +216,7 @@ function saveToLocalStorage() {
 }
 
 function renderTask(task) {
-    let cssClass = task.done ? 'task-done' : '';
+    let cssClass = task.done ? `task-done` : ``;
 
     let taskHTML = `
                     <li id="${task.id}" class="task-item">
