@@ -7,6 +7,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     cursor: default;
+    transition: background 1s;
 }
 
 header,
@@ -18,12 +19,121 @@ header,
 header {
     position: sticky;
     top: 0;
-    z-index: 1;
     display: flex;
     justify-content: center;
-    text-align: center;
-    background-color: rgba(229, 255, 225, 0.33);
+    align-items: center;
+    background-color: rgba(184, 255, 173, 0.33);
     padding: 4px 0;
+}
+
+#parametrs,
+
+#parametrs {
+    position: absolute;
+    left: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-left: 8px;
+    background-color: unset;
+    border-radius: unset;
+}
+
+#switch-container {
+    display: flex;
+    align-items: center;
+    flex-basis: 100%;
+    font-size: 16px;
+    gap: 4px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 16px;
+}
+
+.switch input {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 12px;
+    width: 12px;
+    left: 4px;
+    bottom: 2px;
+    background-color: #fff;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: #2196F3;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+    transform: translateX(20px);
+}
+
+.slider.round {
+    border-radius: 40px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+#logo-container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+#logo {
+    font-size: 24px;
+    text-shadow: 0 0 3px #000;
+    color: rgb(50, 240, 50);
+}
+
+#underlogo {
+    text-shadow: 0 0 1px #fff;
+    color: rgb(43, 211, 43);
+}
+
+.theme {
+    position: absolute;
+    right: 0;
+    margin-right: 8px;
+    background-color: #acb8dd;
+}
+
+.theme img {
+    width: 16px;
+}
+
+.dark {
+    background-color: #262f49;
+}
+
+.dark img {
+    filter: invert(1);
 }
 
 .empty-list {
@@ -50,7 +160,7 @@ header {
     gap: 8px;
     border: 1px solid rgba(0, 0, 0, .25);
     border-radius: 4px;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, .67);
     padding: 8px;
     margin: 0;
     flex-grow: 1;
@@ -139,7 +249,7 @@ li {
 
 #input-container {
     position: sticky;
-    top: 62px;
+    top: 73px;
     z-index: 1;
     display: inline-block;
     align-self: flex-start;
@@ -149,51 +259,46 @@ li {
 
 #task-header-card {
     text-align: center;
-    background-color: rgba(255, 255, 255, .25);
+    background-color: rgba(255, 255, 255, .5);
     padding: 8px;
     border-bottom: 1px solid rgba(0, 0, 0, .125);
     border-radius: 3px 3px 0 0;
 }
 
 form {
-    background-color: rgba(255, 255, 255, .5);
+    background-color: rgba(255, 255, 255, .67);
     border-radius: 0 0 3px 3px;
     gap: 12px;
 }
 
-#task-title-input,
-#task-description-input,
-#task-category-select,
+.task-title-input,
+.task-description-input,
+.task-category-select,
 .add {
     border: none;
     outline: 1px solid #000;
     border-radius: 4px;
 }
 
-#task-title-input {
+.task-title-input {
     margin: 16px 8px 0;
 }
 
-#task-title-input:focus {
+.task-description-input:focus,
+.task-category-select:focus,
+.add:focus,
+.task-title-input:focus {
     outline: 3px solid #0c0;
 }
 
-#example-container {
+.example-container {
     font-size: .75rem;
     color: #b4b4b4;
     margin: 0 8px;
 }
 
-#task-description-input {
+.task-description-input {
     margin: 0 8px;
-}
-
-#task-description-input:focus {
-    outline: 3px solid #0c0;
-}
-
-#task-category-select:focus {
-    outline: 3px solid #0c0;
 }
 
 .add {
@@ -204,14 +309,11 @@ form {
     width: 128px;
     height: 32px;
     cursor: pointer;
+    transition: background .25s;
 }
 
-.add:focus {
-    outline: 3px solid #0c0;
-}
-
-.add:focus-visible {
-    outline: 3px solid #080;
+.add:hover {
+    background-color: #99f;
 }
 
 .container {
@@ -226,12 +328,24 @@ form {
         position: static;
     }
 
+    #parametrs {
+        font-size: 14px;
+    }
+
+    #switch-container {
+        font-size: 12px;
+    }
+
     #input-container {
         position: relative;
         left: 50%;
         top: 0;
         margin-bottom: 16px;
         transform: translateX(-50%);
+    }
+
+    .empty-list-title {
+        font-size: calc(1.5rem);
     }
 
     #tasks-list {
@@ -248,4 +362,12 @@ form {
         display: block;
         margin: 16px;
     }
+}
+
+.light-text {
+    color: #e8e8e8;
+}
+
+.d-none {
+    display: none;
 }
