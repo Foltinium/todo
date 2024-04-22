@@ -11,20 +11,34 @@
 
 <body>
     <header>
-        <div>
-            <div>Progressium</div>
-            <div>список задач</div>
+        <form id="parametrs">
+            <span>Особый режим темы</span>
+            <div id="switch-container">
+                <span>Выкл</span>
+                <label class="switch">
+                    <input id="switch" type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+                <span>Вкл</span>
+            </div>
+        </form>
+        <div id="logo-container">
+            <span id="logo">Progressium</span>
+            <span id="underlogo">список задач</span>
         </div>
+        <button class="btn-action theme dark" type="button"><img src="assets/moon.png"></button>
     </header>
     <main>
         <div id="own-container">
             <div id="input-container" class="container">
                 <div id="task-header-card">Создать новую задачу</div>
                 <form id="form" class="container">
-                    <input id="task-title-input" type="text" placeholder="Название задачи" autofocus required>
-                    <div id="example-container">Например: <span id="example"></span></div>
-                    <textarea id="task-description-input" placeholder="Описание задачи"></textarea>
-                    <select id="task-category-select">
+                    <input id="task-title-input" class="task-title-input" type="text" placeholder="Название задачи"
+                        autofocus required>
+                    <div class="example-container">Например: <span id="example"></span></div>
+                    <textarea id="task-description-input" class="task-description-input"
+                        placeholder="Описание задачи"></textarea>
+                    <select id="task-category-select" class="task-category-select">
                         <option value="Обычное" selected>Обычное</option>
                         <option value="Важное">Важное</option>
                         <option value="Учёба">Учёба</option>
