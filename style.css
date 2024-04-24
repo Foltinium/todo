@@ -328,12 +328,8 @@ form {
         position: static;
     }
 
-    #parametrs {
-        font-size: 14px;
-    }
-
-    #switch-container {
-        font-size: 12px;
+    #parametrs .qwe {
+        display: none;
     }
 
     #input-container {
@@ -345,7 +341,7 @@ form {
     }
 
     .empty-list-title {
-        font-size: calc(1.5rem);
+        font-size: 1.5rem;
     }
 
     #tasks-list {
